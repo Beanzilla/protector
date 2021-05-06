@@ -7,7 +7,11 @@ based on glomie's mod, remade by Zeg9 and rewritten by TenPlus1.
 
 Modified by [Beanzilla](https://github.com/Beanzilla).
 
-https://forum.minetest.net/viewtopic.php?f=11&t=9376
+[https://forum.minetest.net/viewtopic.php?f=11&t=9376](https://forum.minetest.net/viewtopic.php?f=11&t=9376)
+
+Or
+
+[https://notabug.org/TenPlus1/protector](https://notabug.org/TenPlus1/protector)
 
 Change log:
 
