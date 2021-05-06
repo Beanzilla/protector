@@ -192,8 +192,8 @@ local protector_formspec = function(meta)
 		.. default.gui_bg_img
 		.. default.gui_slots
 		.. "label[2.5,0;" .. F(S("-- Protector interface --")) .. "]"
-		.. "label[0,1;" .. F(S("PUNCH node to show protected area")) .. "]"
-        .. "button[4,1;3,0.5;color_change;" .. F(S("Color: "..firstToUpper(color))) .. "]"
+		.. "label[0,1;" .. F(S("PUNCH node to show protected")) .. "]"
+        .. "button[5,1;3,0.5;color_change;" .. F(S("Color: "..firstToUpper(color))) .. "]"
 		.. "label[0,2;" .. F(S("Members:")) .. "]"
 		.. "button_exit[2.5,6.2;3,0.5;close_me;" .. F(S("Close")) .. "]"
 		.. "field_close_on_enter[protector_add_member;false]"
