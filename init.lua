@@ -583,19 +583,16 @@ minetest.register_node("protector:protect", {
 
 -- default recipe and alternative for MineClone2
 if protector_recipe then
-
 	if minetest.registered_items["default:stone"] and minetest.registered_items["default:wood"] then
-
 		minetest.register_craft({
 			output = "protector:protect",
 			recipe = {
 				{"default:stone", "default:stone", "default:stone"},
-				{"default:stone", "default:wood", "default:stone"},
+				{"default:stone", "group:wood", "default:stone"},
 				{"default:stone", "default:stone", "default:stone"},
 			}
 		})
 	else
-
 		minetest.register_craft({
 			output = "protector:protect",
 			recipe = {
@@ -858,6 +855,64 @@ local make_displays = function()
         })
     end
 end
+
+-- display entity shown when protector node is punched
+-- Backwards compatabilty for those protectors that have not been replaced for the new info.
+minetest.register_entity("protector:display", {
+    physical = false,
+    collisionbox = {0, 0, 0, 0, 0, 0},
+    visual = "wielditem",
+    -- wielditem seems to be scaled to 1.5 times original node size
+    visual_size = {x = 0.67, y = 0.67},
+    textures = {"protector:display_node"},
+    timer = 0,
+    glow = 10,
+
+    on_step = function(self, dtime)
+
+        self.timer = self.timer + dtime
+
+        -- remove after set number of seconds
+        if self.timer > protector_show then
+	        self.object:remove()
+        end
+    end,
+})
+
+
+-- Display-zone node, Do NOT place the display as a node,
+-- it is made to be used as an entity (see above)
+-- Backwards compatabilty for those protectors that have not been replaced for the new info.
+
+local x = protector_radius
+minetest.register_node("protector:display_node", {
+    tiles = {"protector_display.png"},
+    use_texture_alpha = "clip", -- true,
+    walkable = false,
+    drawtype = "nodebox",
+    node_box = {
+        type = "fixed",
+        fixed = {
+	        -- sides
+	        {-(x+.55), -(x+.55), -(x+.55), -(x+.45), (x+.55), (x+.55)},
+	        {-(x+.55), -(x+.55), (x+.45), (x+.55), (x+.55), (x+.55)},
+	        {(x+.45), -(x+.55), -(x+.55), (x+.55), (x+.55), (x+.55)},
+	        {-(x+.55), -(x+.55), -(x+.55), (x+.55), (x+.55), -(x+.45)},
+	        -- top
+	        {-(x+.55), (x+.45), -(x+.55), (x+.55), (x+.55), (x+.55)},
+	        -- bottom
+	        {-(x+.55), -(x+.55), -(x+.55), (x+.55), -(x+.45), (x+.55)},
+	        -- middle (surround protector)
+	        {-.55,-.55,-.55, .55,.55,.55},
+        },
+    },
+    selection_box = {
+        type = "regular",
+    },
+    paramtype = "light",
+    groups = {dig_immediate = 3, not_in_creative_inventory = 1},
+    drop = "",
+})
 
 make_displays()
 
